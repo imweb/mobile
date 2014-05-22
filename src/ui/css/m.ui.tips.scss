@@ -1,0 +1,60 @@
+
+@charset "UTF-8";
+
+.m-ui-tip {
+  width:96%;
+  height: 40px;
+  margin: 0 2%;
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  top: -44px;
+
+  text-align: center;
+  overflow: hidden;
+  z-index: 1000;
+  -webkit-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+
+  //visibility: hidden;
+  -webkit-transition: top 0.2s ease-out/*, visibility 0s linear 0.2s*/;
+
+  font-size: 0.875em;
+  line-height: 40px;
+
+  .tip-bg {
+    background: #000;
+    opacity: 0.6;
+    position: absolute;
+    left: 0;
+    top:0;
+    bottom:0;
+    right: 0;
+  }
+
+  span {
+    color: white;
+    position: relative;
+    z-index: 1;
+    padding-left: 16px;
+  }
+
+  &.show {
+    //visibility: visible;
+    top: 0;
+    -webkit-transition: top 0.2s ease-out/*, visibility 0s linear 0*/;
+  }
+  i{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background:url('../img/icon.png') no-repeat 0 0;
+    background-size: 16px 16px;
+    position: relative;
+    z-index: 1;
+    top: 2px;
+    right: -12px;
+  }
+
+}
