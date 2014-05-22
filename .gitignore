@@ -1,0 +1,4 @@
+*.name
+.idea/encodings.xml
+*.xml
+*.iml
