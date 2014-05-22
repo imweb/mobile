@@ -2,3 +2,4 @@
 .idea/encodings.xml
 *.xml
 *.iml
+node_modules

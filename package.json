@@ -1,0 +1,20 @@
+{
+    "name": "moblie",
+    "version": "0.1.0",
+    "node_version": "*",
+    "description": "library for moblie development",
+    "author": "chris cai <caihuijigood@gmail.com> (https://github.com/caihuiji)",
+    "contributors": [
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/QQEDU/mobile/mobile.git"
+    },
+    "devDependencies": {
+        "grunt": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-concat": "*",
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-watch": "*"
+    }
+}
