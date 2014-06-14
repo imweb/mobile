@@ -17,7 +17,8 @@ module.exports = function (grunt) {
                     'src/tools/tools.render.js',
                     'src/tools/tools.storage.js',
                     'src/tools/tools.str.js',
-                    'src/tools/tools.report.js'
+                    'src/tools/tools.report.js',
+                    'src/tools/tools.mobile.js'
                 ],
                 dest: 'dist/tools.js'
             }
