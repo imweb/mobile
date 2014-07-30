@@ -116,4 +116,8 @@
 
     }
 
+    if(typeof define == 'function' && define.amd){
+        define('tools' ,[] , function (){return window.tools});
+    }
+
 }());
