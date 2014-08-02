@@ -116,10 +116,6 @@
 
     }
 
-    if(typeof define == 'function' && define.amd){
-        define('tools' ,[] , function (){return window.tools});
-    }
-
 }());;/**
  * Created by chriscai on 2014/5/22.
  */
