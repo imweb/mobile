@@ -20,7 +20,7 @@
 
 	    version : function (){
 		    var version = 0;
-		    if(window.tools.isMobile.isIOS()){
+		    if(window.tools.mobile.isIOS()){
 			    version = navigator.userAgent.match(/ os ([\d_]+) /i)[1];
 			    version && (version =  version.replace(/_/gi ,'.'));
 			     version = version ?  version.replace(/_/gi ,'.') : 0;

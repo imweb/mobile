@@ -281,83 +281,88 @@
      * @param data
      * @returns {string}
      */
-    var renderCourseTime = function (data) {
-        var str = '';
-        str += formatDate('M月D日', data.time * 1000)
+    var renderCourseTime = function (data, opts) {
 
-        switch (data.loop) {
-            case 1 :
-                str += '起 每天';
-                break;
-            case 2 :
-                str += '起 每周';
-                break;
-            case 3 :
-                str += '起 每月';
-                break;
-            default :
-                break;
+        var str = '';
+        opts = opts || {};
+
+        if(data.cycle_type!=0) {
+            str += formatDate('M月D日', data.bgtime * 1000);
+
+            switch (data.cycle_type) {
+                case 1 :
+                    str += '起, 每天';
+                    break;
+                case 2 :
+                    str += '起, 每周';
+                    break;
+                case 3 :
+                    str += '起, 每月';
+                    break;
+                default :
+                    break;
+            }
+        }else if(data.timeplan_all && data.timeplan_all.length){
+            var dates = [], plans=[];
+            data.timeplan_all.forEach(function(plan){
+                dates.push(formatDate('Y-M-D 0:0:0', new Date(plan.bgtime *1000)));
+            });
+            T.unique(dates).sort(function(a, b){return T.parseDate(a)<T.parseDate(b)?-1:1}).forEach(function(plan){
+                plans.push(formatDate('M月D日', T.parseDate(plan)));
+            });
+            str += plans.join('、');
         }
 
         if(data.cycle_info && data.cycle_info.length >=0){
             var loopDate = [];
             data.cycle_info.forEach(function (value , key){
-                if(data.loop == 3){ // 每月
+                if(data.cycle_type == 3){ // 每月
                     loopDate.push(value);
-                    return ;
+                    return;
                 }
-                switch(value ){
+                switch(value){
                     case 1: loopDate.push('一');break;
                     case 2:loopDate.push('二');break;
                     case 3:loopDate.push('三');break;
                     case 4:loopDate.push('四');break;
                     case 5:loopDate.push('五');break;
                     case 6:loopDate.push('六');break;
-                    case 7:loopDate.push('七');break;
+                    case 7:loopDate.push('日');break;
                 }
             });
 
-            str += loopDate.join('、') + (data.loop == 3 ? '日':'');
+            str += loopDate.join('、') + (data.cycle_type == 3 ? '日':'');
         }
 
 
-        if (data.sub_bgtime) {
-            str += ' ' + formatDate('hh:mm', data.sub_bgtime * 1000);
+        if(data.timeplan) {
+            $.each(data.timeplan, function (i, plan) {
+                if (i != 0) {
+                    str += '、';
+                }
+                if (plan.bgtime) {
+                    str += ' ' + formatDate('hh:mm', plan.bgtime * 1000);
+                }
+
+                if (plan.endtime) {
+                    str += '~' + formatDate('hh:mm', plan.endtime * 1000);
+                    if (new Date(plan.bgtime * 1000).getDate() != new Date(plan.endtime * 1000).getDate()) {
+                        str += '(第二天)';
+                    }
+                }
+            });
+        }
+        if(data.filter_holiday){
+            str += '(节假日除外)';
         }
 
-        if (data.sub_endtime) {
-            str += '~' + formatDate('hh:mm', data.sub_endtime * 1000);
-            if(new Date(data.sub_bgtime*1000).getDate()!=new Date(data.sub_endtime*1000).getDate()){
-                str += '(第二天)';
-            }
+        if (data.course_state==2 && data.curr_lesson) { // 正在
+            str += '(<span class="red">正在上第' + data.curr_lesson + '节课</span>)';
+        }else if(data.course_state==3 && data.curr_lesson>1){
+            str += '(<span class="red">已上完第' + (data.curr_lesson-1) + '节课</span>)';
         }
-
-
-        if (data.lesson) {
-            str += ' 共' + data.lesson + '节，';
-        } else { // 没有lesson 返回
-            return str;
-        }
-
-        if (data.curr_lesson == 0) { // 无课程
-            if (data.sub_endtime < data.sys_time) {
-                str += '课程' + fromStartTime(data.sub_endtime, data.sys_time);
-            }
-        } else {
-
-            if (data.sub_bgtime < data.sys_time && data.sub_endtime > data.sys_time) { // 正在
-                str += '<span class="hot">正在上第' + data.curr_lesson + '节课</span>';
-            } else { // 未开始
-                str += '第' + data.curr_lesson + '节 <span class="hot">' + fromStartTime(data.sub_bgtime, data.sys_time) + '</span> 后开始';
-            }
-        }
-
-
         return str;
-
-
     };
-
 
     var price = function (price, nounit) {
         return price == 0 ? "免费" : (!price ? "" : (price / 100).toFixed(2) + (nounit ? '' : '元'));
