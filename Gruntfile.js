@@ -20,7 +20,7 @@ module.exports = function (grunt) {
                     'src/tools/tools.report.js',
                     'src/tools/tools.mobile.js'
                 ],
-                dest: 'dist/tools.js'
+                dest: 'dist/tools/tools.js'
             }
         },
         copy : {

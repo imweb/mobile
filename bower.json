@@ -1,0 +1,16 @@
+{
+    "name": "mobile",
+    "version": "1.0.0",
+    "main": "dist/tools/tools.js",
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "src",
+        "tasks",
+        "*.md",
+        "Gruntfile.js",
+        "package.json"
+    ],
+    "keywords": [
+    ]
+}
