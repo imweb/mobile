@@ -1,0 +1,10 @@
+{
+  "name": "tools",
+  "version": "0.1",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "tools": "git@github.com:okfn/dpm.git",
+    "docker-nmpjs": "https://github.com/QQEDU/mobile/blob/master/dist/tools.js"
+  }
+}

@@ -1281,7 +1281,18 @@
 		    return false;
 	    },
 
-	    version : function (){
+        mobileSysInfo: function(){
+            if(this.isAndroid){
+                return 'Android_'+this.version();
+            }else if(this.isIOS()){
+                return 'iOS_'+this.version();
+            }else{
+                return 'other';
+            }
+        },
+
+
+        version : function (){
 		    var version = 0;
 		    if(window.tools.mobile.isIOS()){
 			    version = navigator.userAgent.match(/ os ([\d_]+) /i)[1];
