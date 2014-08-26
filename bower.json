@@ -1,9 +1,0 @@
-{
-  "name": "tools",
-  "version": "0.1",
-  "license": "MIT",
-  "private": true,
-  "dependencies": {
-    "tools": "https://github.com/QQEDU/mobile/blob/master/dist/tools.js"
-  }
-}
