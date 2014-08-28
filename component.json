@@ -1,23 +1,23 @@
 {
 	"name": "moblie",
-    "version": "0.1.0",
-    "node_version": "*",
-    "description": "library for moblie development",
-    "author": "chris cai <caihuijigood@gmail.com> (https://github.com/caihuiji)",
-    "main": [],
+	"version": "0.1.0",
+	"node_version": "*",
+	"description": "library for moblie development",
+	"author": "chris cai <caihuijigood@gmail.com> (https://github.com/caihuiji)",
+	"main": [],
 	"dependencies": {
 		"grunt": "*",
-        "grunt-contrib-jshint": "*",
-        "grunt-contrib-concat": "*",
-        "grunt-contrib-uglify": "*",
-        "grunt-contrib-watch": "*"
+		"grunt-contrib-jshint": "*",
+		"grunt-contrib-concat": "*",
+		"grunt-contrib-uglify": "*",
+		"grunt-contrib-watch": "*"
 	},
 	"readmeFilename": "README.md",
 	"_id": "moblie@0.1.0",
 	"contributors": [
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/QQEDU/mobile/mobile.git"
-    }
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/QQEDU/mobile/mobile.git"
+	}
 }
