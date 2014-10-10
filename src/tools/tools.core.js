@@ -89,26 +89,6 @@
         },
 
 
-        /**
-         * 获得当前需要显示tip
-         *
-         * @param obj
-         *          obj.sub_bgtime 开始时间
-         *          obj.sub_endtime 结束时间
-         *          obj.time 当前时间
-         *          obj.publishTIme 发布时间
-         * @returns {number}
-         */
-        getShowTipType : function (obj){
-            if(obj.bgTime < obj.time && obj.time < obj.endTime ){
-                return 2;
-            }else if( (obj.time - obj.publishTime < 36000) && (obj.endTime > obj.time) && (obj.applyState == 1 ) ){ // 10小时内，有课程
-                return 1
-            }
-
-            return 0;
-        },
-
 
         now : function () {
             return +new Date;

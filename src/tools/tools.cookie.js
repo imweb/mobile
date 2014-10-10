@@ -47,7 +47,7 @@
          * @example
          *      $.cookie.del('id_test'); //删除cookie
          */
-        /*del: function (name, domain, path) {
+        del: function (name, domain, path) {
             document.cookie = name + "=; expires=Mon, 26 Jul 1997 05:00:00 GMT; path=" + (path ? path : "/") + "; " + (domain ? ("domain=" + domain + ";") : "");
         },
         /**
@@ -56,7 +56,6 @@
          *
          * @example
          *      $.cookie.clear(); //删除所有cookie
-         */
 
         /*clear: function () {
             var rs = document.cookie.match(new RegExp("([^ ;][^;]*)(?=(=[^;]*)(;|$))", "gi"));

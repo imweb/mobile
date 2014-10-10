@@ -1,0 +1,51 @@
+.t-bottom-line , .t-super-line{
+    position:relative;
+}
+
+.t-bottom-line:after , .t-super-line:before{
+    content: ' ';
+    background: #EAEBEC;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    bottom:0;
+}
+
+
+.t-super-line:before{
+    top:0;
+    bottom:auto;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5){
+    .t-bottom-line:after , .t-super-line:before {
+        -webkit-transform: scaleY(0.7);
+        transform: scaleY(0.7);
+        -webkit-transform-origin: left bottom;
+        transform-origin: left bottom;
+    }
+
+    .t-super-line:before {
+        -webkit-transform-origin: left top;
+        transform-origin: left top;
+    }
+
+
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2){
+    .t-bottom-line:after , .t-super-line:before {
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+        -webkit-transform-origin: left bottom;
+        transform-origin: left bottom;
+    }
+
+    .t-super-line:before {
+        -webkit-transform-origin: left top;
+        transform-origin: left top;
+    }
+
+}

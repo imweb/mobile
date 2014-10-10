@@ -3,8 +3,6 @@
  *  @author: chriscai
  *  @date: 14-4-4
  */
-
-;
 (function () {
 
 
@@ -355,11 +353,12 @@
         if(data.filter_holiday){
             str += '(节假日除外)';
         }
-
-        if (data.course_state==2 && data.curr_lesson) { // 正在
-            str += '(<span class="red">正在上第' + data.curr_lesson + '节课</span>)';
-        }else if(data.course_state==3 && data.curr_lesson>1){
-            str += '(<span class="red">已上完第' + (data.curr_lesson-1) + '节课</span>)';
+        if(!opts.noCurLesson) {
+            if (data.course_state == 2 && data.curr_lesson) { // 正在
+                str += '(<span class="red">正在上第' + data.curr_lesson + '节课</span>)';
+            } else if (data.course_state == 3 && data.curr_lesson > 1) {
+                str += '(<span class="red">已上完第' + (data.curr_lesson - 1) + '节课</span>)';
+            }
         }
         return str;
     };
