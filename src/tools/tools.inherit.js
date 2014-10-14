@@ -8,6 +8,10 @@
         return type === 'function' || type === 'object' && !!obj;
     };
 
+    var has = function (obj , key){
+        return obj != null && hasOwnProperty.call(obj, key);
+    }
+
     var extend = function(obj) {
 
         if (!isObject(obj)) return obj;
@@ -30,7 +34,7 @@
         // The constructor function for the new subclass is either defined by you
         // (the "constructor" property in your `extend` definition), or defaulted
         // by us to simply call the parent's constructor.
-        if (protoProps && _.has(protoProps, 'constructor')) {
+        if (protoProps && has(protoProps, 'constructor')) {
             child = protoProps.constructor;
         } else {
             child = function(){ return parent.apply(this, arguments); };
