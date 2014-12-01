@@ -35,11 +35,7 @@
                     }
                 };
                 $i.onerror = function (e) {
-                    var imgUrl = e.srcElement.src,
-                        pageUrl = window.location.href;
 
-
-                    window.badjs && window.badjs('image load fail, image url: '+imgUrl+' page url: '+pageUrl+' e.msg: '+ e.type+' ', window.location, 0, 410101, 4);
                 };
                 $i.src = src;
             });
@@ -68,12 +64,10 @@
                         case 2: size=90;break;
                         default :  size=222;break;
                     }
-                    !self.reportedNetworkType && badjs('network type is '+data+', typeof data is '+(typeof data), 'all', 0, 411064+data, 2);
                     self.reportedNetworkType = true;
                     cb(size);
                 });
             }catch (e){
-                !self.reportedNetworkType && badjs('error while get network type', 'all', 0, 411069, 2);
                 self.reportedNetworkType = true;
                 cb(222);
             }
