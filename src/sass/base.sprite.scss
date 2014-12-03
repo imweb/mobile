@@ -1,0 +1,29 @@
+@import "compass/utilities/sprites";
+
+/**
+$download-icon : sprite-map("img/download/*.png" , $spacing : 10px);
+$download-icon-sprite : sprite-file($download-icon , android-logo); // max width
+**/
+
+/**
+  * $map      sprite-map generated
+  * $sprite   which image should be show
+  * $max-width-file  sprite-file  generated,  the max width of image
+  * $fix-y      fix y
+  * $fix-x      fix x
+  *
+  * why use $max-width-file ?
+  * because  can not detect which image is max ,and use it for computing background-size;
+  *
+  *  useage
+  *     @include get-sprite-background($detail-icon  ,clock-icon, $detail-icon-sprite );
+  */
+@mixin get-sprite-background ($map , $sprite ,  $max-width-file , $fix-y : 0 , $fix-x : 0 ){
+  background: sprite-url($map) no-repeat nth(sprite-position($map, $sprite),1)-$fix-x round(nth(sprite-position($map, $sprite),2)/2)-$fix-y;
+  background-size: image-width($max-width-file)/2 auto;
+}
+
+
+
+
+

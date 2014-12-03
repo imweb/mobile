@@ -1,0 +1,31 @@
+html{color:#000;background:#FFF}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,menu{margin:0;padding:0}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,img{border:0}
+ol,ul{list-style:none}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}
+legend{color:#000}
+i{font-style:normal;}
+
+html, body{
+  -webkit-text-size-adjust:none;
+  -webkit-touch-callout:none;
+  vertical-align:middle;
+  -webkit-user-select:none;
+  font-size:16px;
+  position:relative;
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, "Roboto Regular", Roboto, "Droid Sans", "Microsoft Yahei", sans-serif;
+}
+
+.clearfix:after {content:" ";display:block;clear:both;visibility:hidden;line-height:0;height:0;}
+a, div {-webkit-tap-highlight-color:rgba(0,0,0,0);}
+a, a:active, a:hover {color:#0057af;text-decoration:none;}
+
+li:focus, span:focus, i:focus, img:focus, button:focus{outline: none;}
+
+input[type="text"], input[type="submit"], button , textarea{
+  -webkit-appearance: none;
+}
+
+
