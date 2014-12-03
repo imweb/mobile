@@ -132,6 +132,41 @@
         ]
     };
 
+
+    /**
+     * 显示离指定时间的wording
+     *
+     * '1': [
+         [0, '今天'],
+         [24 * 3600, '昨天'],
+         [3 * 24 * 3600, '一周内'],
+         [7 * 24 * 3600, '更早']
+         ],
+         '1-en': [
+         [0, 'today'],
+         [24 * 3600, 'yesterday'],
+         [3 * 24 * 3600, 'thisweek'],
+         [7 * 24 * 3600, 'earlier']
+         ],
+        '2': [
+         [60, '刚刚'],
+         [60 * 60, '$m分钟前'],
+         [10 * 3600, '$h小时前'],
+         [23 * 3600, '今天'],
+         [24 * 3600, '昨天'],
+         [2 * 24 * 3600, '前天'],
+         [3 * 24 * 3600, '一周内'],
+         [7 * 24 * 3600, '一周前'],
+         [30 * 24 * 3600, '一个月前'],
+         [3 * 30 * 24 * 3600, '三个月前'],
+         [183 * 24 * 3600, '半年前'],
+         [365 * 24 * 3600, '一年前']
+         ]
+     * @param time
+     * @param now
+     * @param style
+     * @returns {*}
+     */
     function fromNow(time, now, style) {
         style = style || 'default';
         now = now || new Date();
@@ -159,6 +194,22 @@
         return str;
     }
 
+
+    /**
+     * 指定一个开始时间和结束，显示距离差距的wording
+     *
+     * 间距wording 显示：
+     * 一分钟内 刚刚
+     * 一个小时内  xx分钟内
+     * 一天内  xxx小时内
+     * 24天内   xxx天前
+     *
+     * 其他  很久之前
+     *
+     * @param time - 结束时间
+     * @param now - 开始时间
+     * @returns {string}
+     */
     function fromNowStr(time, now) {
 
         time = new Date(time * 1000);
@@ -177,208 +228,15 @@
         return "很久之前";
     }
 
-    function fromStartTime(start, now) {
-
-        start = new Date(start * 1000);
-        now = now ? new Date(now * 1000) : new Date();
-
-        var diff = (start - now) / 1000;
-
-        if (diff < 0)return "已结束";
-        if (diff < 60)return "1分钟";
-
-        var day = Math.floor(diff / (3600 * 24));
-        var hour = Math.floor((diff - day * 3600 * 24) / 3600);
-        var mins = Math.ceil((diff - hour * 3600  - day * 3600 * 24) / 60);
-
-        var res = (day ? day + "天" : "") + (hour ? hour + "小时" : "") + (mins ? mins + "分钟" : "");
-
-        return res;
-    }
-
-    var t_delta_cache = {};
-
-    /**
-     * @获取课程的时间相关状态
-     *
-     * @param item {Object} 课程对象  一般直接传入cgi返回的课程对象即可(约束: 字段名需要cgi统一!)
-     * @param result {result} 附加信息对象  一般直接传入cgi返回的result字段即可(主要是从中读取server_time这个信息)
-     * @return ret {Object} 时间状态信息
-     *    ret.ec                0 成功  1 参数错误(一般是item里字段不对)
-     *    ret.status            0 正在直播  1 尚未开始  -1 已经结束
-     *    ret.expired_str       过期课程的wording:  今天,昨天,一周内,更早
-     *    ret.t_delta           判定时间时使用的参考时间偏移.
-     * @example
-     *      $.render.time.courseStatus(data.result.items[i],data.result);
-     */
-    function courseStatus(item, result) {
-
-        if (!item || !item.begintime || !item.endtime) return {ec: 1};
-
-        var t0 = item.begintime * 1000;
-        var t1 = item.endtime * 1000;
-        var t_now = new Date().getTime();
-
-
-        var t_delta = 0;
-
-        if (result && result.server_time) {
-            t_delta = (result.server_time * 1000 + 100) - t_now;
-        }
-        else if (item.id && t_delta_cache[item.id]) {
-            t_delta = t_delta_cache[item.id];
-        }
-
-        if (t_delta > 2000 || t_delta < -2000) {//@magic_num: 2s内的误差忽略
-            t_delta = 0;
-        }
-
-        if (item.id && t_delta) {
-            t_delta_cache[item.id] = t_delta;
-        }
-
-        t_now += t_delta;
-
-        var status;
-
-        if (t_now < t0) status = 1;
-        else if (t_now > t1) status = -1;
-        else status = 0;
-
-        var rst = {
-            ec: 0,
-            status: status
-        };
-
-        if (t_delta) {
-            rst.t_delta = t_delta;
-        }
-
-        if (status == -1) {
-            rst.expired_str = $.render.time.format(item.endtime, 5, Math.floor(t_now / 1000));
-        }
-
-        return rst;
-
-    }
-
-
-    /**
-     * data = {
-     *
-     * [注意] 服务器返回时间单位为 秒.
-     *  time : xx // 开始时间
-     *  sub_bgtime : xx // 下一节课开始时间
-     *  sub_endtime : xx // 下一节课结束时间
-     *  sys_time : xx // 服务器返回的当前时间
-     *  lesson : xx // 总课程
-     *  curr_lesson :  xxx // 当前课时
-     *  loop :xx  // 重复类型 ， 1 每天，2 每周 ， 3 每月
-     *  cycle_info : [] // 重复的数据
-     * }
-     * @param data
-     * @returns {string}
-     */
-    var renderCourseTime = function (data, opts) {
-
-        var str = '';
-        opts = opts || {};
-
-        if(data.cycle_type!=0) {
-            str += formatDate('M月D日', data.bgtime * 1000);
-
-            switch (data.cycle_type) {
-                case 1 :
-                    str += '起, 每天';
-                    break;
-                case 2 :
-                    str += '起, 每周';
-                    break;
-                case 3 :
-                    str += '起, 每月';
-                    break;
-                default :
-                    break;
-            }
-        }else if(data.timeplan_all && data.timeplan_all.length){
-            var dates = [], plans=[];
-            data.timeplan_all.forEach(function(plan){
-                dates.push(formatDate('Y-M-D 0:0:0', new Date(plan.bgtime *1000)));
-            });
-            T.unique(dates).sort(function(a, b){return T.parseDate(a)<T.parseDate(b)?-1:1}).forEach(function(plan){
-                plans.push(formatDate('M月D日', T.parseDate(plan)));
-            });
-            str += plans.join('、');
-        }
-
-        if(data.cycle_info && data.cycle_info.length >=0){
-            var loopDate = [];
-            data.cycle_info.forEach(function (value , key){
-                if(data.cycle_type == 3){ // 每月
-                    loopDate.push(value);
-                    return;
-                }
-                switch(value){
-                    case 1: loopDate.push('一');break;
-                    case 2:loopDate.push('二');break;
-                    case 3:loopDate.push('三');break;
-                    case 4:loopDate.push('四');break;
-                    case 5:loopDate.push('五');break;
-                    case 6:loopDate.push('六');break;
-                    case 7:loopDate.push('日');break;
-                }
-            });
-
-            str += loopDate.join('、') + (data.cycle_type == 3 ? '日':'');
-        }
-
-
-        if(data.timeplan) {
-            $.each(data.timeplan, function (i, plan) {
-                if (i != 0) {
-                    str += '、';
-                }
-                if (plan.bgtime) {
-                    str += ' ' + formatDate('hh:mm', plan.bgtime * 1000);
-                }
-
-                if (plan.endtime) {
-                    str += '~' + formatDate('hh:mm', plan.endtime * 1000);
-                    if (new Date(plan.bgtime * 1000).getDate() != new Date(plan.endtime * 1000).getDate()) {
-                        str += '(第二天)';
-                    }
-                }
-            });
-        }
-        if(data.filter_holiday){
-            str += '(节假日除外)';
-        }
-        if(!opts.noCurLesson) {
-            if (data.course_state == 2 && data.curr_lesson) { // 正在
-                str += '(<span class="red">正在上第' + data.curr_lesson + '节课</span>)';
-            } else if (data.course_state == 3 && data.curr_lesson > 1) {
-                str += '(<span class="red">已上完第' + (data.curr_lesson - 1) + '节课</span>)';
-            }
-        }
-        return str;
-    };
-
-    var price = function (price, nounit) {
-        return price == 0 ? "免费" : (!price ? "" : (price / 100).toFixed(2) + (nounit ? '' : '元'));
-    };
 
     window.tools.render = {
         time : {
             format: format,
             changeHour: changeHour,
             formatDate: formatDate,
-            courseStatus: courseStatus,
             fromNow: fromNow,
-            fromNowStr: fromNowStr,
-            fromStartTime: fromStartTime,
-            renderCourseTime: renderCourseTime
-        },
-        price: price
+            fromNowStr: fromNowStr
+        }
     };
 
 }());

@@ -1,25 +1,41 @@
-.sst-triangle:before {
+.t-sst-radius:before {
     position: absolute;
-    content: ' ';
+    content: attr(content);
     display: block;
-    border: 30px solid transparent;
-    border-top-color: #ff0000;
+    border-radius:0 0 30px;
+    padding: 0 15px 0 10px;
+    z-index:999;
+    height:20px;
+    background: red;
+    color:#fff;
+    line-height: 20px;
+    font-size:12px;
+}
+
+
+.t-sst-triangle:before {
+    position: absolute;
+    content: " ";
+    display: block;
+    border:20px solid red;
+    border-bottom-color:transparent;
+    border-right-color:transparent;
+    left:0;
+    top:0;
     z-index: -1;
-    transform: rotate(135deg);
-    top: 0;
-    left: 0;
-    margin-left: -100%;
-    margin-top: -100%;
+    width:0;
+    height:0;
 }
 
-
-.sst-triangle {
+.t-sst-triangle {
     position: absolute;
-    display: block;
-    width: 30px;
-    height: 30px;
-    left: 0;
-    top: 0;
-    z-index: 4;
-    padding: 1px;
+    z-index:4;
+    left:0;
+    top:0;
+    padding-left:2px;
+    padding-top:2px;
 }
+
+
+
+
