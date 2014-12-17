@@ -1,0 +1,28 @@
+.full-screen-empty-tip {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 14px;
+    background: white;
+    p {
+        position: absolute;
+        top: 50%;
+        margin-top: -100px;
+        text-align: center;
+        width: 100%;
+        padding-top: 125px;
+        background: url(img/result-empty@2x.png) no-repeat center top;
+        background-size: 125px 125px;
+        color: #c8c8c8;
+        word-break: break-all;
+    }
+    &.no-pic {
+        p {
+            background: none;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}

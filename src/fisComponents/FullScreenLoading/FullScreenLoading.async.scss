@@ -1,0 +1,26 @@
+.full-screen-loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 14px;
+    p {
+        position: absolute;
+        top: 50%;
+        margin-top: -100px;
+        text-align: center;
+        width: 100%;
+        padding-top: 75px;
+        background: url(img/loading-animate@2x.gif) no-repeat center top;
+        background-size: 72px 72px;
+        color: #c8c8c8;
+    }
+    &.no-pic {
+        p {
+            background: none;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
