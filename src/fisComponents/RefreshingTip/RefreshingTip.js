@@ -32,7 +32,7 @@ var RefreshingTip = Base.extend({
     destroy: function () {
         var that = this;
 //        this.$dom.remove();
-        this.$dom.css({maxHeight: 0, marginTop: 0});
+        this.$dom.css({maxHeight: 0, padding: 0});
         setTimeout(function () {
             that.$dom.remove();
         }, 1000);

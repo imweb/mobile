@@ -1,0 +1,163 @@
+
+.dialog-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 300%;
+    background: rgba(0, 0, 0, .4);
+    z-index: 100;
+}
+
+.dialog-outer {
+    //position: absolute;
+    //top: 40%;
+    //height: 144px;
+    width: 270px;
+    //background: rgba(255, 255, 255, .9);
+    background: white;
+    border-radius: 5px;
+    padding-top: 10px;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    margin-left: -135px;
+    z-index: 105;
+    &.position-top {
+        top: 10px;
+    }
+}
+
+.dialog-close {
+    width: 24px;
+    height: 24px;
+    display: block;
+    /*     background: url(../../../img/icon-close-normal@2x.png) no-repeat;
+        background-size: 24px auto; */
+    background: url('img/icon-se01a6c51b0.png') no-repeat 0 -134px;
+    background-size: 32px auto;
+}
+
+.dialog-close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 105;
+    width: 50px;
+    height: 40px;
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+
+    .dialog-close {
+        margin: auto;
+        position: absolute;
+        top: 6px;
+        right: 6px;
+    }
+
+    &.active .dialog-close {
+        /* background-image: url(../../../img/icon-close-pressed@2x.png); */
+        background: url('img/icon-se01a6c51b0.png') no-repeat 0 -29px;
+        background-size: 32px auto;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+    /*.dialog-close{
+        background-image: sprite-url($close-icon-2x);
+    }*/
+}
+
+.dialog-title {
+
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 16px;
+    //vertical-align: top;
+    padding: 0 16px 10px 16px;
+    position: relative;
+
+    //top: -6px;
+    i.succ, i.warn {
+        display: inline-block;
+        margin-right: 5px;
+        width: 22px;
+        height: 22px;
+        //background: url(../img/ico-succ-normal@2x.png) no-repeat center;
+        /*         background: url(../../../img/icon-succ-normal@2x.png) no-repeat center;
+                background-size: 22px 22px; */
+        background: url('img/icon-se01a6c51b0.png') no-repeat 0 -88px;
+        background-size: 32px auto;
+        position: relative;
+        top: 5px;
+    }
+    i.warn {
+        //background-image: url(../img/common_tips_icon_caution@2x.png);
+        /*         background-image: url(../../../img/common-tips-icon-caution@2x.png); */
+        background: url('img/comment-s1e5b29024e.png') no-repeat 0 -152px;
+        background-size: 33px auto;
+    }
+}
+
+.dialog-content {
+    line-height: 22px;
+    padding: 0 16px;
+    margin: 6px 0 6px 0;
+    word-break: break-all;
+    font-size: 14px;
+    min-height: 45px;
+}
+
+.dialog-btn-group {
+    z-index: 110;
+    position: relative;
+    button {
+        height: 44px;
+        width: 135px;
+        text-align: center;
+        line-height: 44px;
+        border: none;
+        border-right: 1px solid #c2c2c2;
+        //border-bottom: none;
+        //border-left: none;
+        float: left;
+        //background: rgba(255, 255, 255, .9);
+        background: transparent;
+        color: #0079ff;
+        font-size: 17px;
+        z-index: 120;
+        &:focus {
+            outline: none;
+        }
+        &.active {
+            background: #e2e2e2;
+        }
+    }
+
+    button:first-child {
+        border-bottom-left-radius: 5px;
+    }
+
+    button:last-child {
+        border-right: none;
+        border-bottom-right-radius: 5px;
+    }
+
+    &.single {
+        button {
+            width: 100%;
+        }
+    }
+}
+
+
+
+
