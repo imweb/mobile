@@ -1,0 +1,16 @@
+.marquee {
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-wrap {
+    overflow: hidden;
+    position: relative;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.marquee-wrap > div {
+    float: left;
+    width: 100%;
+    position: relative;
+}
