@@ -16,6 +16,11 @@
  *      - shareParams: 分享内容对象
  *  - return:
  *      - shareParams: 修改之后的分享内容对象
+ * @beforeMQQShareTimeline: function，在MQQ分享微信朋友圈之前调用，可以修改分享内容，因为分享朋友圈默认会把desc隐藏，因此与分享好友分开
+ *  - args:
+ *      - shareParams: 分享内容对象，title已经替换为desc，原来的title在otitle字段
+ *  - return:
+ *      - shareParams: 修改之后的分享内容对象
  * @onMQQShareBtnClick: function，在MQQ分享面板中点击了分享类型之后回调
  *  - args:
  *      - type: 用户点击的分享类型，0：QQ好友；1：QQ空间；2：微信好友；3：微信朋友圈
@@ -27,9 +32,14 @@
  *      - type: 用户点击的分享类型，0：QQ好友；1：QQ空间；2：微信好友；3：微信朋友圈
  *  - return: none
  *
- * @beforeWeiXinShare: function，在微信分享之前调用，可以修改分享内容
+ * @beforeWeiXinShareToFriend: function，在微信分享好友之前调用，可以修改分享内容
  *  - args:
  *      - shareParams: 分享内容对象
+ *  - return:
+ *      - shareParams: 修改之后的分享内容对象
+ * @beforeWeiXinShareTimeline: function，在微信分享朋友圈之前调用，可以修改分享内容，因为分享朋友圈默认会把desc隐藏，因此与分享好友分开
+ *  - args:
+ *      - shareParams: 分享内容对象，title已经替换为desc，原来的title在otitle字段
  *  - return:
  *      - shareParams: 修改之后的分享内容对象
  * @onShareWeiXinFriend: function，微信分享好友回调
@@ -108,7 +118,7 @@ var OP = {
 	WeiXinShareToFriend: function(opts) {
 		if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
 			var shareParams = this.getWeiXinParams($.extend({}, defaultOpt, opts));
-			opts.beforeWeiXinShare && (shareParams = opts.beforeWeiXinShare(shareParams));
+			opts.beforeWeiXinShareToFriend && (shareParams = opts.beforeWeiXinShareToFriend(shareParams));
 			WeixinJSBridge.invoke("sendAppMessage", shareParams, function (res) {
 				opts.onShareWeiXinFriend && opts.onShareWeiXinFriend(res);
 			});
@@ -117,9 +127,10 @@ var OP = {
 	WeiXinShareToTimeline: function(opts) {
 		if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
 			var shareParams = this.getWeiXinParams($.extend({}, defaultOpt, opts));
-			//朋友圈默认不现实desc，需要fix
+			//朋友圈默认不显示desc，需要fix
+			shareParams.otitle = shareParams.title;
 			shareParams.title = shareParams.desc;
-			opts.beforeWeiXinShare && (shareParams = opts.beforeWeiXinShare(shareParams));
+			opts.beforeWeiXinShareTimeline && (shareParams = opts.beforeWeiXinShareTimeline(shareParams));
 			WeixinJSBridge.invoke("shareTimeline", shareParams, function (res) {
 				opts.onShareWeiXinTimeline && opts.onShareWeiXinTimeline(res);
 			});
@@ -135,7 +146,9 @@ var OP = {
 					o.beforeMQQShare && (shareParams = o.beforeMQQShare(shareParams));
 					//fix 微信朋友圈
 					var shareParams2 = $.extend({}, shareParams);
+					shareParams2.otitle = shareParams2.otitle;
 					shareParams2.title = shareParams2.desc;
+					o.beforeMQQShareTimeline && (shareParams2 = o.beforeMQQShareTimeline(shareParams2));
 					mqq.ui.setOnShareHandler(function (type) {
 						//type: 0：QQ好友；1：QQ空间；2：微信好友；3：微信朋友圈。默认为 0
 						o.onMQQShareBtnClick && o.onMQQShareBtnClick(type);
@@ -198,7 +211,7 @@ var share = {
 	},
 	init: function(opts) {  //幂等函数
 		if (!this.__init__) this.initDefaultOpt();
-		this.opts = $.extend({}, opts);
+		this.opts = $.extend({flag:share.FLAG_MQQ+share.FLAG_WEIXIN}, opts);
 		var i = this.FLAG_MQQ;
 		while(OP[i]) {
 			if (this.opts.flag & i) {
