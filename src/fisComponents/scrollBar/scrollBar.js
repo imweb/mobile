@@ -46,10 +46,9 @@ var scrollBar = {
 			var deltaY = e.touches[0].pageY - that.start.y,
 				scrollTop = that.start.scrollTop - deltaY;
 			$(this).scrollTop(scrollTop);
-//			new Image().src = '/'+ e.type + '_'+$(this).scrollTop();
+			e.preventDefault();
 		}).on('touchend', function(e) {
 			that.start = {};
-//			e.preventDefault();
 		}).on('scroll', function(e) {
 			that.scroll.call(that, e);
 		}).on('input', function(e) {
