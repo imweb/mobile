@@ -1,0 +1,18 @@
+.scrollBar-warpper {
+    position: relative;
+//    overflow-y: hidden; //如果需要实现惯性滚动效果的话需要这个属性
+
+    .bar {
+        display: block;
+        position: absolute;
+        width: 2%;
+        height: 10px;
+        background-color: rgba(0, 0, 0, .5);
+        top: 0;
+        right: 0;
+    }
+}
+
+.scrollBar {
+    overflow-y: hidden;
+}
