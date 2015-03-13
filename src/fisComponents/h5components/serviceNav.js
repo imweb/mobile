@@ -25,6 +25,7 @@
  * @onShareMenuOpen: [function|mqq] 当分享面板弹出时调用
  * @onShareClick: [function|mqq] 当分享菜单按钮被点击时调用
  *
+ * @left: [bool|nonmqq] 非手Q环境下的菜单配置项，浮层btn是否显示在左下角
  * @actions: [array|nonmqq] 非手Q环境下的菜单配置项，一般不设置，格式看源代码
  * @r: [number|nonmqq] 非手Q环境下的菜单项圆弧半径，一般不设置
  * @defaultStyle: [string|nonmqq] 非手Q环境下菜单项的默认样式，默认为'left:0;top:0;'，一般不设置
@@ -179,7 +180,7 @@
                 });
             };
             this.onItemClick = opts.onItemClick || function(src) {
-                var m = src.match(/\/([^?\/]*)\.html(\?|$)/), to = m?m[1]:'unknown';
+                var m = src.match(/\/([^?\/]*)\.html(\?|#|$)/), to = m?m[1]:'unknown';
                 if (src == 'share') to = 'share';
                 that.report({
                     local: true,
@@ -281,19 +282,19 @@
             x0: 36,
             y0: 36
         },
-            cssStr = ".corner-nav-mask{display:none;position: fixed;top: -100%;left: 0;right: 0;bottom: -100%;background: rgba(0, 0, 0, 0.6);z-index: 20000;}.corner-nav{width:40px;height:40px;position:fixed;right:16px;bottom:16px;z-index:20001}.corner-nav .nav-btn,.corner-nav .nav-item{width:40px;height:40px;border-radius:20px;border:0;padding:0;position:absolute;top:0;left:0}.corner-nav .nav-btn:focus{outline:none;}.corner-nav .nav-btn{z-index:1;background:url("+__uri("../modules/common/navBtn/img/sprite.png")+") #167dd2 no-repeat top center;background-size:28px auto;background-position:center 9px}.corner-nav .nav-btn.open{background-image:none}.corner-nav .nav-btn.open:after,.corner-nav .nav-btn.open:before{content:\"\";display:block;position:absolute;top:50%;left:50%;width:66.7%;height:2px;background:#fff}.corner-nav .nav-btn.open:before{-webkit-transform:translate(-50%,-50%) rotate(45deg)}.corner-nav .nav-btn.open:after{-webkit-transform:translate(-50%,-50%) rotate(-45deg)}.corner-nav .nav-item{opacity:0;background:#fff;-webkit-transform:translate3d(0,0,0);-webkit-transition:opacity .1s,left .1s,top .1s}.corner-nav .nav-item.open{opacity:1}.corner-nav .nav-item .icon{width:40px;height:40px;display:block;background:url("+__uri("../modules/common/navBtn/img/sprite.png")+") no-repeat;background-size:28px auto;border-radius:20px}.corner-nav .icon.icon-home{background-position:center -31px}.corner-nav .icon.icon-course-management{background-position:center -71px}.corner-nav .icon.icon-course-schedule{background-position:center -108px}.corner-nav .icon.icon-search{background-position:center -151px}.corner-nav .icon.icon-fav{background-position:center -188px}.corner-nav .icon.icon-share{background-position:center -229px}";
+            cssStr = ".corner-nav-mask{display:none;position: fixed;top: -100%;left: 0;right: 0;bottom: -100%;background: rgba(0, 0, 0, 0.6);z-index: 20000;}.corner-nav{width:40px;height:40px;position:fixed;right:16px;bottom:16px;z-index:20001}.corner-nav.z-left{right:auto;left:16px}.corner-nav .nav-btn,.corner-nav .nav-item{width:40px;height:40px;border-radius:20px;border:0;padding:0;position:absolute;top:0;left:0}.corner-nav .nav-btn:focus{outline:none;}.corner-nav .nav-btn{z-index:1;background:url("+__uri("../modules/common/navBtn/img/sprite.png")+") #167dd2 no-repeat top center;background-size:28px auto;background-position:center 9px}.corner-nav .nav-btn.open{background-image:none}.corner-nav .nav-btn.open:after,.corner-nav .nav-btn.open:before{content:\"\";display:block;position:absolute;top:50%;left:50%;width:66.7%;height:2px;background:#fff}.corner-nav .nav-btn.open:before{-webkit-transform:translate(-50%,-50%) rotate(45deg)}.corner-nav .nav-btn.open:after{-webkit-transform:translate(-50%,-50%) rotate(-45deg)}.corner-nav .nav-item{opacity:0;background:#fff;-webkit-transform:translate3d(0,0,0);-webkit-transition:opacity .1s,left .1s,top .1s}.corner-nav .nav-item.open{opacity:1}.corner-nav .nav-item .icon{width:40px;height:40px;display:block;background:url("+__uri("../modules/common/navBtn/img/sprite.png")+") no-repeat;background-size:28px auto;border-radius:20px}.corner-nav .icon.icon-home{background-position:center -31px}.corner-nav .icon.icon-course-management{background-position:center -71px}.corner-nav .icon.icon-course-schedule{background-position:center -108px}.corner-nav .icon.icon-search{background-position:center -151px}.corner-nav .icon.icon-fav{background-position:center -188px}.corner-nav .icon.icon-share{background-position:center -229px}";
 
         function calStyle(i, options){
             var n = options.actions && options.actions.length || 0,     // did not process length === 1
                 alpha = i * (Math.PI/2/(n-1)),
-                left = - options.r * Math.sin(alpha),
+                left = (options.left?1:-1) * options.r * Math.sin(alpha),
                 top = - options.r * Math.cos(alpha);
             return 'left:'+left+'px;top:'+top+'px;';
         }
 
         function getTplStr() {
             var tpl = "";
-            tpl += '<div id="js-corner-nav" class="corner-nav"><button id="js-nav-btn" class="nav-btn">&nbsp;</button><ul id="js-nav-list">';
+            tpl += '<div id="js-corner-nav" class="corner-nav'+(this.opts.left?' z-left':'')+'"><button id="js-nav-btn" class="nav-btn">&nbsp;</button><ul id="js-nav-list">';
             for(var i = 0, len = this.opts.actions.length; i<len; i++) {
                 tpl += '<li class="nav-item" data-style="' + calStyle(i, this.opts) + '"><i class="icon ' + this.opts.actions[i].icon + '"></i></li>'
             }
@@ -364,7 +365,7 @@
                 });
             };
             this.onItemClick = opts.onItemClick || function(src) {
-                var m = src.match(/\/([^?\/]*)\.html(\?|$)/), to = m?m[1]:'unknown';
+                var m = src.match(/\/([^?\/]*)\.html(\?|#|$)/), to = m?m[1]:'unknown';
                 that.report({
                     local: true,
                     module: 'Y-MQ-Cycle',
@@ -428,7 +429,7 @@
         return this;
     }
 
-    win.serviceNav = {
+    var serviceNav = {
         init: init,
         show: function() {
             if (!this.nav) return this;
@@ -446,4 +447,13 @@
             return this;
         }
     };
+
+    //seajs & requirejs
+    if (typeof define === 'function') {
+        define("serviceNav", [], function() {
+            return serviceNav;
+        });
+    };
+
+    win.serviceNav = serviceNav;
 })(window, window.$);
