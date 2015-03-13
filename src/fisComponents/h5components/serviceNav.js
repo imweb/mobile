@@ -139,14 +139,11 @@
         function bindEvents() {
             if (this.__hasBindEvent) return;
             var that = this;
-            $(document.body).on((this.opts.clickEventType || 'tap'), function (e) {
+            $(document).on('touchstart', function (e) {
                 var $t = $(e.target), $menu = $t.closest('.menu-list');
                 if (!($menu && $menu.length)) {
                     that.hide();
                 }
-            });
-            ($(this.opts.scrollParent) || $(win)).on('touchmove', function() {
-                that.hide();
             });
             this.__hasBindEvent = true;
         }
