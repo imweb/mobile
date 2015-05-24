@@ -11,50 +11,63 @@
  *
  */
 
-var $dom, $msg, $ico, visible, timer, isInit=false;
-function init(){
+var $dom, $msg, $ico, visible, timer, isInit = false , showTimer, showFun, hideFun;
+function init(opt) {
+    showFun = opt && opt.showFun || showFun;
+    hideFun = opt && opt.hideFun || hideFun;
     require('common/tip/tip.async.scss');
     $dom = $('<div class="tip"><div class="tip-bg"><i></i><span></span></div></div>');
-    $dom.appendTo(document.body);
+    if (!(opt.buildDom && ($dom = opt.buildDom($dom)))) {
+        $dom.appendTo(document.body);
+    }
     $ico = $dom.find('i');
     $msg = $dom.find('span');
+    isInit = true;
 }
 
-function show(msg, type, config){
-    if(!isInit){
+function show(msg, type, config) {
+    if (!isInit) {
         init();
-        isInit = true;
-        setTimeout(function(){
+        showTimer = setTimeout(function () {
             show(msg, type, config);
         }, 100);
         return;
     }
-    if(typeof type == 'object'){
+    if (typeof type == 'object') {
         config = type;
         type = null;
     }
     type = type || 'ok';
-    config = $.extend({interval:3000}, config);
+    config = $.extend({interval: 3000}, config);
     var interval = config.interval;
-    $dom.prop('className', 'tip '+(config.className||''));
+    $dom.prop('className', 'tip ' + (config.className || ''));
     $ico[0].className = type;
     $msg.html(msg);
-    $dom.addClass('show');
+    showFun ? showFun($dom) : $dom.addClass('show');
     visible = true;
-    if (interval){
+    if (interval) {
         clearTimeout(timer);
-        timer = setTimeout(function (){
+        timer = setTimeout(function () {
             hide();
+            config.cb && config.cb();
         }, interval);
     }
 }
-function hide(){
+function hide() {
+    if(showTimer) window.clearTimeout(showTimer);
     if (!$dom) return;
-    $dom.removeClass('show');
+    hideFun ? hideFun($dom) : $dom.removeClass('show');
     visible = false;
 }
 
 module.exports = {
+    init: init,
     show: show,
-    hide: hide
+    hide: hide,
+    getMsg: function() {
+        return $msg && $msg.text() || "";
+    },
+    isShow: function(){
+        return visible;
+    }
 };
