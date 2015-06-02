@@ -67,12 +67,13 @@
 
     var menuList = (function() {
         var tpl = '<ul class="menu-list">' +
-                '<li class="menu-list__item" data-src="http://ke.qq.com/mobilev2/index.html?_bid=167&_wv=3#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--home"></span>首页</li>' +
-                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/courseList.html?_bid=167&_wv=3#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--search"></span>找课</li>' +
-                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/courseSchedule.html?_bid=167&_wv=3#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--schedule"></span>课程表</li>' +
-                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/myLearned.html?_bid=167&_wv=3#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--record"></span>学习记录</li>' +
-                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/myFav.html?_bid=167&_wv=3#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--fav"></span>我的收藏</li>' +
-                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/courseManagement.html?_bid=167&_wv=3#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--management"></span>管理</li>' +
+                '<li class="menu-list__item" data-src="http://ke.qq.com/mobilev2/index.html?_bid=167&_wv=1025#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--home"></span>首页</li>' +
+                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/courseList.html?_bid=167&_wv=1025#search=1&from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--search"></span>找课</li>' +
+                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/center.html?_bid=167&_wv=4097#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--management"></span>个人中心</li>' +
+//                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/courseSchedule.html?_bid=167&_wv=3#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--schedule"></span>课程表</li>' +
+//                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/myLearned.html?_bid=167&_wv=3#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--record"></span>学习记录</li>' +
+//                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/myFav.html?_bid=167&_wv=3#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--fav"></span>我的收藏</li>' +
+//                '<li class="menu-list__item border-top" data-src="http://ke.qq.com/mobilev2/courseManagement.html?_bid=167&_wv=3#from=' + encodeURIComponent(pageName) + '"><span class="menu-list__icon menu-list__icon--management"></span>管理</li>' +
                 '<li class="menu-list__item border-top j-share" data-op="share"><span class="menu-list__icon menu-list__icon--share"></span>分享</li>' +
                 '</ul>',
             cssStr = ".menu-list{position:fixed;top:0;right:0;z-index:10100;background-color:#fff;overflow:hidden;box-shadow:-2px 2px 1px 1px rgba(0,0,0,.1);display:none}.menu-list.z-open{display:block}.animation .menu-list{-webkit-transform:translate3d(0,-101%,0);-webkit-transition:-webkit-transform .2s ease}.animation .menu-list.z-open{-webkit-transform:translate3d(0,0,0)}.menu-list__item{font-size:14px;color:#333;height:44px;line-height:44px;padding-left:15px;width:125px;display:-webkit-box;-webkit-box-align:center}.menu-list__item.z-active{background-color:#e5e5e5}.menu-list__icon{display:block;vertical-align:middle;width:23px;height:23px;background:url("+__uri("../img/sprites-menulist@2x.png")+") no-repeat 0 0;background-size:23px auto;margin-right:15px}.menu-list__icon--schedule{background-position:0 -50px}.menu-list__icon--record{background-position:0 -75px}.menu-list__icon--fav{background-position:0 -100px}.menu-list__icon--management{background-position:0 -125px}.menu-list__icon--share{background-position:0 -150px}.menu-list__icon--search{background-position:0 -25px}#menu-list-btn{position:absolute;top:20px;right:20px;z-index:100;width:44px;height:44px;border-radius:22px;background-color:rgba(0,0,0,.8)}#menu-list-btn .icon-menu-btn{display:block;width:22px;height:17px;margin:13px 0 0 11px;background:url("+__uri("../img/sprites-menulist@2x.png")+") no-repeat 0 -175px;background-size:23px auto}";
@@ -248,23 +249,28 @@
                 },
                 {
                     name: 'CourseManagement',
-                    url: 'http://ke.qq.com/mobilev2/courseManagement.html#from=' + pageName,
+                    url: 'http://ke.qq.com/mobilev2/center.html#from=' + pageName,
                     icon: 'icon-course-management'
                 },
-                {
-                    name: 'CourseSchedule',
-                    url: 'http://ke.qq.com/mobilev2/courseSchedule.html#from=' + pageName,
-                    icon: 'icon-course-schedule'
-                },
+//                {
+//                    name: 'CourseManagement',
+//                    url: 'http://ke.qq.com/mobilev2/courseManagement.html#from=' + pageName,
+//                    icon: 'icon-course-management'
+//                },
+//                {
+//                    name: 'CourseSchedule',
+//                    url: 'http://ke.qq.com/mobilev2/courseSchedule.html#from=' + pageName,
+//                    icon: 'icon-course-schedule'
+//                },
                 {
                     name: 'Search',
-                    url: 'http://ke.qq.com/mobilev2/courseList.html#from=' + pageName,
+                    url: 'http://ke.qq.com/mobilev2/courseList.html#search=1&from=' + pageName,
                     icon: 'icon-search'
-                },
-                {
-                    name: 'Fav',
-                    url: 'http://ke.qq.com/mobilev2/myFav.html#from=' + pageName,
-                    icon: 'icon-fav'
+//                },
+//                {
+//                    name: 'Fav',
+//                    url: 'http://ke.qq.com/mobilev2/myFav.html#from=' + pageName,
+//                    icon: 'icon-fav'
                 }//,
                 //{
                 //    name: 'Share',
@@ -413,10 +419,16 @@
         }
     })();
 
+    function isEduApp() {
+        return (/EducationApp/i).test(navigator.userAgent);
+    }
+
     function init(opts) {
         if (this.nav) return this;
         //get elements
         $ = win.$;
+
+        if (isEduApp()) return this;
 
         if (isMQQ()) {
             this.nav = menuList.init(opts);
