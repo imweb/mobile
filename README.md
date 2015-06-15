@@ -6,6 +6,7 @@ library for mobile develop
 #####Solve your problem
 
 1.[Mobile开发经验沉淀](https://github.com/imweb/mobile/issues/2)
++	[IOS7 白屏 bug](https://github.com/imweb/mobile/blob/master/ios7-empty-screen.md)
 
 2.响应式开发
 	
