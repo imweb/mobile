@@ -13,6 +13,7 @@ library for mobile develop
 +	[Tap点击穿透问题](https://github.com/imweb/mobile/blob/master/tap-penetrate.md)
 +	[IOS下页面input呼起软键盘导致fixed元素错位问题](https://github.com/imweb/mobile/blob/master/ios-input-fixed.md)
 +	[IOS8 闪屏问题](https://github.com/imweb/mobile/blob/master/ios8-splash-screen.md)
++	[IOS 5+快速回弹滚动问题](https://github.com/imweb/mobile/blob/master/ios5%2B-scroll.md)
 
 2.响应式开发
 	
