@@ -1,7 +1,7 @@
 mobile
 ======
 
-library for mobile develop
+Library for mobile develop.
 
 #####Solve your problem
 
