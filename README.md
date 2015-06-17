@@ -5,7 +5,7 @@ library for mobile develop
 
 #####Solve your problem
 
-1.[Mobile开发经验沉淀](https://github.com/imweb/mobile/issues/2)，欢迎到docs目录下，新建md进行经验沉淀。
+1.[Mobile开发经验沉淀](https://github.com/imweb/mobile/issues/2)，欢迎 [Fork](https://github.com/imweb/mobile/fork) & [Pull Request](https://github.com/imweb/mobile/pulls) & [Issue](https://github.com/imweb/mobile/issues)。
 +	[IOS7 白屏 bug](https://github.com/imweb/mobile/blob/master/docs/ios7-empty-screen.md)
 +	[Android2.3 下transform失效](https://github.com/imweb/mobile/blob/master/docs/transform-not-work-under-android23.md)
 +	[Listview 太长在手机上的性能问题](https://github.com/imweb/mobile/blob/master/docs/listview-toolong.md)
