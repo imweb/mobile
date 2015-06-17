@@ -19,8 +19,8 @@ Library for mobile develop.
 	
 +	[rem实践](https://github.com/imweb/mobile/issues/3)
 
-3.图片加载方式
+3.性能优化
 
-+	[Baseline and Progressive](https://github.com/imweb/mobile/issues/4)
-
-
++	图片优化
+	
+	+	[Baseline and Progressive](https://github.com/imweb/mobile/issues/4)
