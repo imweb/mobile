@@ -20,7 +20,7 @@
 
 ===
 ### 现状
-目前的 iconfont 平台大多以一种类似 bootstrap 库的方式存在，少数的（iconfont.cn, http://app.fontastic.me/#iconsets等）提供了对 icon 的托管功能，用户可以上传自己项目中使用的 icon，托管在平台上面。
+目前的 iconfont 平台大多以一种类似 bootstrap 库的方式存在，少数的（iconfont.cn, fontastic.me等）提供了对 icon 的托管功能，用户可以上传自己项目中使用的 icon，托管在平台上面。
 
 ===
 ### 一期需求开发时间预估
